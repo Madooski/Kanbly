@@ -1,0 +1,99 @@
+.board-area {
+  flex: 1;
+  padding: 0 24px 24px 24px; /* Container's own generous padding */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns evenly splitting the available width */
+  gap: 16px; /* Reduced gap between columns */
+  overflow: hidden; /* Removed horizontal scroll to force fitting in VW */
+  background-color: #FAFBFC;
+}
+
+.board-area::-webkit-scrollbar {
+  height: 8px;
+}
+.board-area::-webkit-scrollbar-thumb {
+  background-color: #E2E8F0;
+  border-radius: 8px;
+}
+.board-area::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.board-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  /* Removed fixed min-width and max-width so they respect the 1fr grid size natively */
+}
+
+.col-header-rich {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+.col-header-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #A0AEC0; /* Light grey as requested */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.col-header-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: #4A5568;
+  background-color: #E2E8F0;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.col-cards-rich {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 12px;
+  padding-bottom: 32px;
+}
+
+.col-cards-rich::-webkit-scrollbar {
+  width: 5px;
+}
+
+.col-cards-rich::-webkit-scrollbar-thumb {
+  background-color: #CBD5E0;
+  border-radius: 5px;
+}
+
+.col-cards-rich::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.create-task-inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  color: #A0AEC0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.create-task-inline:hover {
+  color: #718096;
+}
