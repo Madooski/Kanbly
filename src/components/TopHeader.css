@@ -1,9 +1,23 @@
 .topheader {
   display: flex;
   flex-direction: column;
-  padding: 16px 48px 8px 48px; /* Greatly reduced top and bottom padding */
+  padding: 16px 48px 8px 48px; /* Default desktop padding */
   background-color: #FAFBFC;
   flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .topheader {
+    padding: 12px 12px 8px 12px; /* Even tighter padding */
+  }
+  .header-tab {
+    padding: 6px 10px; /* Tighter padding for tabs */
+    font-size: 12px;
+    gap: 4px;
+  }
+  .tabs-container {
+    gap: 2px;
+  }
 }
 
 /* Top Navbar Row */

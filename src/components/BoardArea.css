@@ -1,11 +1,37 @@
 .board-area {
   flex: 1;
-  padding: 0 24px 24px 24px; /* Container's own generous padding */
+  padding: 0 24px 24px 24px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns evenly splitting the available width */
-  gap: 16px; /* Reduced gap between columns */
-  overflow: hidden; /* Removed horizontal scroll to force fitting in VW */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  overflow-y: auto; /* Allow core vertical scroll for stacked columns */
   background-color: #FAFBFC;
+}
+
+@media (max-width: 1024px) {
+  .board-area {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 16px 16px 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .board-area {
+    grid-template-columns: 1fr;
+    padding: 0 12px 12px 12px;
+    height: auto; /* Allow growth */
+    overflow-y: visible;
+  }
+  
+  .board-column {
+    height: auto; /* Natural height */
+    margin-bottom: 24px;
+  }
+  
+  .col-cards-rich {
+    overflow-y: visible; /* Disable internal scroll */
+    height: auto;
+  }
 }
 
 .board-area::-webkit-scrollbar {
