@@ -2,7 +2,7 @@
 
 import { FIELDS } from "@/context/AppContext";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { logout } from "@/store/appSlice";
+import { logout, toggleSidebar } from "@/store/appSlice";
 
 const NAV_ITEMS = [
   { label: "My Board", icon: "dashboard", id: "board" },
@@ -21,12 +21,25 @@ export default function Sidebar() {
   const displayField = fieldMeta ?? { title: "Workspace", icon: "grid_view" };
 
   return (
-    <aside
-      className={[
-        "flex flex-col bg-white dark:bg-[#0a0a14] border-r border-[#cbc3d7]/30 dark:border-white/8 transition-all duration-300 overflow-hidden flex-shrink-0",
-        isSidebarOpen ? "w-56" : "w-0 opacity-0 pointer-events-none",
-      ].join(" ")}
-    >
+    <>
+      {/* Mobile Backdrop */}
+      <div
+        className={[
+          "fixed inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm z-30 transition-opacity md:hidden",
+          isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none",
+        ].join(" ")}
+        onClick={() => dispatch(toggleSidebar())}
+      />
+
+      <aside
+        className={[
+          "flex flex-col bg-white dark:bg-[#0a0a14] border-r border-[#cbc3d7]/30 dark:border-white/8 transition-all duration-300 overflow-hidden flex-shrink-0 z-40",
+          "absolute md:relative h-full",
+          isSidebarOpen
+            ? "w-64 md:w-56 translate-x-0 opacity-100"
+            : "w-64 md:w-0 -translate-x-full md:translate-x-0 md:opacity-0 md:pointer-events-none",
+        ].join(" ")}
+      >
       <div className="flex flex-col h-full p-3 gap-4 min-w-[224px]">
         {/* User Profile */}
         <div className="flex items-center gap-3 p-3 rounded-2xl bg-[#f8f9ff] dark:bg-white/5 border border-[#cbc3d7]/30 dark:border-white/8">
@@ -90,5 +103,6 @@ export default function Sidebar() {
         </div>
       </div>
     </aside>
+    </>
   );
 }

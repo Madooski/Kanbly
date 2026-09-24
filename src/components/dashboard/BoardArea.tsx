@@ -34,7 +34,7 @@ export default function BoardArea() {
 
   return (
     <>
-      <div className="flex gap-5 overflow-x-auto pb-4 px-6 pt-6 flex-1 min-h-0 bg-[#FAFBFC] dark:bg-transparent">
+      <div className="flex gap-5 overflow-x-auto pb-4 mb-6 lg:mb-8 px-6 pt-6 flex-1 min-h-0 bg-[#FAFBFC] dark:bg-transparent snap-x snap-mandatory">
         {columns.map((col, idx) => (
           <BoardColumn
             key={idx}

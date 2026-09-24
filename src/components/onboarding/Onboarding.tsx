@@ -73,11 +73,11 @@ export default function Onboarding() {
         </span>
       </button>
 
-      <main className="relative z-10 flex flex-col lg:flex-row items-center justify-center w-full min-h-screen px-6 py-12 gap-12 max-w-6xl mx-auto">
+      <main className="relative z-10 flex flex-col lg:flex-row items-center justify-center w-full min-h-screen px-6 py-12 pt-24 lg:pt-12 gap-8 md:gap-12 max-w-6xl mx-auto">
         {/* Left: Copy */}
-        <div className="flex-1 flex flex-col gap-6 max-w-xl">
+        <div className="flex-1 flex flex-col gap-4 md:gap-6 max-w-xl text-center lg:text-left items-center lg:items-start">
           {/* AI Badge */}
-          <div className="inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full bg-[#e9ddff] dark:bg-violet-500/10 border border-transparent dark:border-violet-500/30 text-[#5516be] dark:text-violet-300 text-xs font-bold tracking-widest uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#e9ddff] dark:bg-violet-500/10 border border-transparent dark:border-violet-500/30 text-[#5516be] dark:text-violet-300 text-xs font-bold tracking-widest uppercase">
             <span
               className="material-symbols-outlined text-sm"
               style={{ fontVariationSettings: "'FILL' 1", fontSize: "16px" }}
@@ -88,7 +88,7 @@ export default function Onboarding() {
           </div>
 
           {/* Title */}
-          <h1 className="text-5xl lg:text-[60px] font-extrabold leading-[1.1] tracking-tight text-[#0d1c2d] dark:text-white">
+          <h1 className="text-4xl md:text-5xl lg:text-[60px] font-extrabold leading-[1.15] lg:leading-[1.1] tracking-tight text-[#0d1c2d] dark:text-white">
             <span className="overflow-hidden block">
               <span
                 className="block animate-[slideUp_0.7s_cubic-bezier(0.16,1,0.3,1)_0.2s_both]"

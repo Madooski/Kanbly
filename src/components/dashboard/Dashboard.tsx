@@ -7,7 +7,7 @@ import BoardArea from "./BoardArea";
 
 export default function Dashboard() {
   return (
-    <div className="flex flex-col h-screen bg-[#f8f9ff] text-[#0d1c2d] dark:bg-[#0d0d1a] dark:text-white overflow-hidden">
+    <div className="flex flex-col h-[100dvh] bg-[#f8f9ff] text-[#0d1c2d] dark:bg-[#0d0d1a] dark:text-white overflow-hidden">
       {/* Top navbar spans full width */}
       <TopNavbar />
 

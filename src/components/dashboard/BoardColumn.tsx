@@ -11,7 +11,7 @@ interface BoardColumnProps {
 
 export default function BoardColumn({ column, isFirstColumn, onAddTask }: BoardColumnProps) {
   return (
-    <div className="flex flex-col gap-3 min-w-[300px] flex-1">
+    <div className="flex flex-col gap-3 min-w-[85vw] md:min-w-[300px] flex-1 min-h-0 snap-center">
       {/* Column Header */}
       <div className="flex items-center gap-2 px-1">
         <span className="text-[13px] font-extrabold tracking-[0.05em] uppercase text-[#A0AEC0] dark:text-white/50">
@@ -23,7 +23,7 @@ export default function BoardColumn({ column, isFirstColumn, onAddTask }: BoardC
       </div>
 
       {/* Cards */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 overflow-y-auto pr-1 pb-4 min-h-0">
         {column.cards.map((card) => (
           <TaskCard key={card.id} card={card} />
         ))}
