@@ -1,8 +1,9 @@
 "use client";
 
-import type { TaskCard as TaskCardType } from "@/types";
-import { useAppSelector } from "@/store/hooks";
+import type { TaskCard as TaskCardType, TaskStatus } from "@/types";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { selectColumnLabels } from "@/store/appSlice";
+import { moveTaskStatus } from "@/store/tasksSlice";
 import { relativeTimeString } from "@/utils/time";
 
 // Tag colour map — expand as new tags are introduced
@@ -51,10 +52,19 @@ function buildTimeLabel(
   if (status === "scheduled") {
     const isPast = new Date(dueDate) < new Date();
     if (isPast) {
-      return `${scheduledLabel} ${relativeTimeString(dueDate)}`;
+      return `${scheduledLabel} ${relativeTimeString(dueDate, "ago")}`;
     }
   }
   return `Due ${relativeTimeString(dueDate)}`;
+}
+
+function getNextStep(
+  status: TaskStatus,
+  labels: { drafting: string; review: string; scheduled: string }
+): { nextStatus: TaskStatus; nextLabel: string } | null {
+  if (status === 'drafting') return { nextStatus: 'review', nextLabel: labels.review };
+  if (status === 'review') return { nextStatus: 'scheduled', nextLabel: labels.scheduled };
+  return null;
 }
 
 interface TaskCardProps {
@@ -63,7 +73,9 @@ interface TaskCardProps {
 
 export default function TaskCard({ card }: TaskCardProps) {
   const labels = useAppSelector(selectColumnLabels);
+  const dispatch = useAppDispatch();
   const timeLabel = buildTimeLabel(card.status, card.dueDate, labels.scheduled);
+  const next = getNextStep(card.status, labels);
 
   return (
     <div className="group bg-white dark:bg-white/5 hover:bg-[#FAFBFC] dark:hover:bg-white/8 border border-[#E2E8F0] dark:border-white/10 dark:hover:border-white/20 rounded-2xl p-4 flex flex-col gap-3 transition-all duration-200 shadow-sm dark:shadow-none hover:shadow-md hover:shadow-black/5 dark:hover:shadow-black/20 hover:-translate-y-[2px] cursor-pointer">
@@ -90,13 +102,30 @@ export default function TaskCard({ card }: TaskCardProps) {
 
       {/* Footer */}
       <div className="flex items-center justify-between pt-1">
-        {/* Comment count */}
-        <span className="flex items-center gap-1 text-[#A0AEC0] dark:text-white/40 text-xs font-semibold">
-          <span className="material-symbols-outlined" style={{ fontSize: "13px" }}>
-            chat_bubble
+        {/* Left side: Comments and Move button */}
+        <div className="flex items-center gap-4">
+          {/* Comment count */}
+          <span className="flex items-center gap-1 text-[#A0AEC0] dark:text-white/40 text-xs font-semibold">
+            <span className="material-symbols-outlined" style={{ fontSize: "13px" }}>
+              chat_bubble
+            </span>
+            {card.comments}
           </span>
-          {card.comments}
-        </span>
+          
+          {/* Move Button */}
+          {next && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                dispatch(moveTaskStatus({ id: card.id, status: next.nextStatus }));
+              }}
+              className="flex items-center gap-0.5 text-[11px] font-semibold text-[#A0AEC0] dark:text-white/30 hover:text-[#6b38d4] dark:hover:text-violet-400 transition-colors duration-200"
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: '12px' }}>arrow_forward</span>
+              {next.nextLabel}
+            </button>
+          )}
+        </div>
 
         {/* Time label */}
         <span className="flex items-center gap-1 text-[#A0AEC0] dark:text-white/40 text-xs font-semibold">

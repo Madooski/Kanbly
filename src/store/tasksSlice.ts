@@ -41,7 +41,12 @@ export const tasksSlice = createSlice({
       action: PayloadAction<{ id: string; status: TaskStatus }>
     ) => {
       const task = state.tasks.find((t) => t.id === action.payload.id);
-      if (task) task.status = action.payload.status;
+      if (task) {
+        task.status = action.payload.status;
+        if (action.payload.status === 'scheduled') {
+          task.dueDate = new Date().toISOString();
+        }
+      }
     },
     moveTaskStage: (
       state,
