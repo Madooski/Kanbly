@@ -2,13 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { useApp, FIELDS } from "@/context/AppContext";
+import { useAppDispatch } from "@/store/hooks";
+import { setCurrentField } from "@/store/appSlice";
+import { seedTasksForRole } from "@/store/tasksSlice";
 import type { FieldId } from "@/types";
 import FieldCard from "./FieldCard";
 import WordReveal from "./WordReveal";
 import Button from "@/components/ui/Button";
 
 export default function Onboarding() {
-  const { setCurrentField, isDarkMode, toggleDarkMode } = useApp();
+  const { isDarkMode, toggleDarkMode } = useApp();
+  const dispatch = useAppDispatch();
   const [selectedField, setSelectedField] = useState<FieldId | null>(null);
   const [isCompleting, setIsCompleting] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -27,7 +31,8 @@ export default function Onboarding() {
     if (!selectedField) return;
     setIsCompleting(true);
     setTimeout(() => {
-      setCurrentField(selectedField);
+      dispatch(seedTasksForRole(selectedField));
+      dispatch(setCurrentField(selectedField));
     }, 1200);
   };
 

@@ -17,10 +17,6 @@ export const FIELDS: Field[] = [
 // ─── Context Types ────────────────────────────────────────────────────────────
 
 interface AppContextValue {
-  currentField: FieldId | null;
-  setCurrentField: (field: FieldId | null) => void;
-  isSidebarOpen: boolean;
-  toggleSidebar: () => void;
   isDarkMode: boolean;
   toggleDarkMode: () => void;
 }
@@ -32,8 +28,6 @@ const AppContext = createContext<AppContextValue | null>(null);
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [currentField, setCurrentField] = useState<FieldId | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   React.useEffect(() => {
@@ -44,12 +38,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isDarkMode]);
 
-  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
   const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
   const value = useMemo(
-    () => ({ currentField, setCurrentField, isSidebarOpen, toggleSidebar, isDarkMode, toggleDarkMode }),
-    [currentField, isSidebarOpen, isDarkMode]
+    () => ({ isDarkMode, toggleDarkMode }),
+    [isDarkMode]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -1,16 +1,19 @@
 "use client";
 
 import { useApp } from "@/context/AppContext";
+import { useAppDispatch } from "@/store/hooks";
+import { toggleSidebar, logout } from "@/store/appSlice";
 
 export default function TopNavbar() {
-  const { toggleSidebar, setCurrentField, isDarkMode, toggleDarkMode } = useApp();
+  const { isDarkMode, toggleDarkMode } = useApp();
+  const dispatch = useAppDispatch();
 
   return (
     <nav className="flex items-center justify-between px-4 h-16 border-b border-[#cbc3d7]/30 dark:border-white/8 bg-white dark:bg-[#0f0f1a]/80 backdrop-blur-sm flex-shrink-0 z-20">
       {/* Left: menu toggle + brand */}
       <div className="flex items-center gap-3">
         <button
-          onClick={toggleSidebar}
+          onClick={() => dispatch(toggleSidebar())}
           className="w-9 h-9 flex items-center justify-center rounded-xl text-[#0d1c2d] dark:text-white/60 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 transition-all duration-200"
           aria-label="Toggle sidebar"
         >
@@ -52,7 +55,7 @@ export default function TopNavbar() {
       {/* Right: actions */}
       <div className="flex items-center gap-2">
         <button
-          onClick={() => setCurrentField(null)}
+          onClick={() => dispatch(logout())}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#6b38d4] dark:border-white/10 text-[#6b38d4] dark:text-white/50 text-xs font-bold uppercase tracking-wider bg-[#e9ddff] dark:bg-transparent hover:bg-[#6b38d4] hover:text-white dark:hover:border-violet-500/40 dark:hover:bg-violet-500/10 transition-all duration-200 hover:shadow-[0_4px_12px_rgba(107,56,212,0.2)] dark:hover:shadow-none"
         >
           <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>

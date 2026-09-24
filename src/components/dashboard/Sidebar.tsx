@@ -1,6 +1,8 @@
 "use client";
 
-import { useApp, FIELDS } from "@/context/AppContext";
+import { FIELDS } from "@/context/AppContext";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { logout } from "@/store/appSlice";
 
 const NAV_ITEMS = [
   { label: "My Board", icon: "dashboard", id: "board" },
@@ -11,7 +13,9 @@ const NAV_ITEMS = [
 ];
 
 export default function Sidebar() {
-  const { currentField, setCurrentField, isSidebarOpen } = useApp();
+  const currentField = useAppSelector((state) => state.app.currentField);
+  const isSidebarOpen = useAppSelector((state) => state.app.isSidebarOpen);
+  const dispatch = useAppDispatch();
 
   const fieldMeta = FIELDS.find((f) => f.id === currentField);
   const displayField = fieldMeta ?? { title: "Workspace", icon: "grid_view" };
@@ -75,7 +79,7 @@ export default function Sidebar() {
           </button>
 
           <button
-            onClick={() => setCurrentField(null)}
+            onClick={() => dispatch(logout())}
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#ba1a1a] dark:text-white/40 hover:bg-[#ffdad6] dark:hover:bg-red-500/10 transition-all duration-200"
           >
             <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
