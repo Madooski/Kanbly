@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { useAppSelector } from "@/store/hooks";
 import { selectColumnLabels } from "@/store/appSlice";
 import BoardColumn from "./BoardColumn";
+import AddTaskModal from "./AddTaskModal";
 import type { BoardColumnData } from "@/types";
 
 //TODO: replace with tasksSlice data
@@ -10,6 +12,7 @@ import type { BoardColumnData } from "@/types";
 export default function BoardArea() {
   const tasks = useAppSelector((state) => state.tasks.tasks);
   const labels = useAppSelector(selectColumnLabels);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const columns: BoardColumnData[] = [
     {
@@ -30,10 +33,19 @@ export default function BoardArea() {
   ];
 
   return (
-    <div className="flex gap-5 overflow-x-auto pb-4 px-6 pt-6 flex-1 min-h-0 bg-[#FAFBFC] dark:bg-transparent">
-      {columns.map((col, idx) => (
-        <BoardColumn key={idx} column={col} isFirstColumn={idx === 0} />
-      ))}
-    </div>
+    <>
+      <div className="flex gap-5 overflow-x-auto pb-4 px-6 pt-6 flex-1 min-h-0 bg-[#FAFBFC] dark:bg-transparent">
+        {columns.map((col, idx) => (
+          <BoardColumn
+            key={idx}
+            column={col}
+            isFirstColumn={idx === 0}
+            onAddTask={() => setIsModalOpen(true)}
+          />
+        ))}
+      </div>
+
+      <AddTaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   );
 }
