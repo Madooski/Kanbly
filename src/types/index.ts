@@ -12,18 +12,25 @@ export interface Field {
   icon: string;
 }
 
-export interface TaskCardData {
+export type TaskStatus = 'drafting' | 'review' | 'scheduled';
+export type TaskStage = 'planning' | 'active' | 'published';
+
+export interface TaskCard {
+  id: string;
   tag: string;
   title: string;
-  desc?: string;
+  description: string;
+  avatars: string[];
   comments: number;
-  time: string;
+  dueDate: string;
+  status: TaskStatus;
+  stage: TaskStage;
 }
 
 export interface BoardColumnData {
   title: string;
   count: number;
-  cards: TaskCardData[];
+  cards: TaskCard[];
 }
 
 export interface NavItem {
