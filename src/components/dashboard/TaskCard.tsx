@@ -70,6 +70,15 @@ function getNextStep(
   return null;
 }
 
+function getPreviousStep(
+  status: TaskStatus,
+  labels: { drafting: string; review: string; scheduled: string }
+): { previousStatus: TaskStatus; previousLabel: string } | null {
+  if (status === "review") return { previousStatus: "drafting", previousLabel: labels.drafting };
+  if (status === "scheduled") return { previousStatus: "review", previousLabel: labels.review };
+  return null;
+}
+
 interface TaskCardProps {
   card: TaskCardType;
   showArchiveMenu?: boolean;
@@ -80,6 +89,7 @@ export default function TaskCard({ card, showArchiveMenu = false }: TaskCardProp
   const dispatch = useAppDispatch();
   const timeLabel = buildTimeLabel(card.status, card.dueDate, labels.scheduled);
   const next = getNextStep(card.status, labels);
+  const previous = getPreviousStep(card.status, labels);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -99,28 +109,42 @@ export default function TaskCard({ card, showArchiveMenu = false }: TaskCardProp
   return (
     <div className="relative group bg-white dark:bg-white/5 hover:bg-[#FAFBFC] dark:hover:bg-white/8 border border-[#E2E8F0] dark:border-white/10 dark:hover:border-white/20 rounded-2xl p-4 flex flex-col gap-3 transition-all duration-200 shadow-sm dark:shadow-none hover:shadow-md hover:shadow-black/5 dark:hover:shadow-black/20 hover:-translate-y-[2px] cursor-pointer">
 
-      {/* Top-right controls: three-dot menu (last col) OR delete button */}
-      {showArchiveMenu ? (
-        <div ref={menuRef} className="absolute top-2.5 right-2.5">
-          <button
-            onClick={(e) => { e.stopPropagation(); setMenuOpen((o) => !o); }}
-            aria-label="Card options"
-            className="
-              opacity-100 sm:opacity-0 sm:group-hover:opacity-100
-              transition-opacity duration-200
-              w-[22px] h-[22px] rounded-full
-              flex items-center justify-center
-              bg-[#f0f0f5] hover:bg-[#e2dff0] dark:bg-white/10 dark:hover:bg-white/20
-              text-[#718096] dark:text-white/50
-              text-[15px] font-bold leading-none select-none
-            "
-          >
-            ⋯
-          </button>
+      {/* Top-right card actions */}
+      <div ref={menuRef} className="absolute top-2.5 right-2.5">
+        <button
+          onClick={(e) => { e.stopPropagation(); setMenuOpen((o) => !o); }}
+          aria-label="Card options"
+          className="
+            opacity-100 sm:opacity-0 sm:group-hover:opacity-100
+            transition-opacity duration-200
+            w-[22px] h-[22px] rounded-full
+            flex items-center justify-center
+            bg-[#f0f0f5] hover:bg-[#e2dff0] dark:bg-white/10 dark:hover:bg-white/20
+            text-[#718096] dark:text-white/50
+            text-[15px] font-bold leading-none select-none
+          "
+        >
+          ⋯
+        </button>
 
-          {/* Dropdown */}
-          {menuOpen && (
-            <div className="absolute right-0 top-7 z-50 min-w-[120px] bg-white dark:bg-[#1a1a2e] border border-[#E2E8F0] dark:border-white/10 rounded-xl shadow-xl dark:shadow-black/40 overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150">
+        {/* Dropdown */}
+        {menuOpen && (
+          <div className="absolute right-0 top-7 z-50 min-w-[150px] bg-white dark:bg-[#1a1a2e] border border-[#E2E8F0] dark:border-white/10 rounded-xl shadow-xl dark:shadow-black/40 overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150">
+            {previous && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMenuOpen(false);
+                  dispatch(moveTaskStatus({ id: card.id, status: previous.previousStatus }));
+                }}
+                className="flex items-center gap-2.5 w-full px-3.5 py-2.5 text-[13px] font-medium text-[#494454] dark:text-white/70 hover:bg-[#f8f5ff] dark:hover:bg-violet-500/10 hover:text-[#6b38d4] dark:hover:text-violet-300 transition-colors duration-150"
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: "15px" }}>arrow_back</span>
+                Move back to {previous.previousLabel}
+              </button>
+            )}
+
+            {showArchiveMenu && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -138,32 +162,22 @@ export default function TaskCard({ card, showArchiveMenu = false }: TaskCardProp
                 <span className="material-symbols-outlined" style={{ fontSize: "15px" }}>archive</span>
                 Archive
               </button>
-            </div>
-          )}
-        </div>
-      ) : (
-        /* Delete button — non-last columns */
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            dispatch(enqueuePendingDelete({ id: card.id, title: card.title }));
-          }}
-          aria-label="Delete task"
-          className="
-            absolute top-2.5 right-2.5
-            opacity-100 sm:opacity-0 sm:group-hover:opacity-100
-            transition-opacity duration-200
-            w-[22px] h-[22px] rounded-full
-            flex items-center justify-center
-            bg-red-500/10 hover:bg-red-500/20
-            text-red-400 hover:text-red-500
-            text-[14px] font-bold leading-none
-          "
-        >
-          ×
-        </button>
-      )}
+            )}
 
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setMenuOpen(false);
+                dispatch(enqueuePendingDelete({ id: card.id, title: card.title }));
+              }}
+              className="flex items-center gap-2.5 w-full px-3.5 py-2.5 text-[13px] font-medium text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors duration-150"
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: "15px" }}>delete</span>
+              Delete
+            </button>
+          </div>
+        )}
+      </div>
       {/* Header: tag */}
       <div className="flex items-center justify-between">
         <span
