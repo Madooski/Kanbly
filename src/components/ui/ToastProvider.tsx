@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { cancelPendingDelete, commitPendingDelete } from "@/store/uiSlice";
+import { cancelPendingDelete, commitPendingDelete, removeToast } from "@/store/uiSlice";
 import { deleteTask } from "@/store/tasksSlice";
 
 const GRACE_MS = 4000;
@@ -10,8 +10,11 @@ const GRACE_MS = 4000;
 export default function ToastProvider() {
   const dispatch = useAppDispatch();
   const pendingDeletes = useAppSelector((s) => s.ui.pendingDeletes);
+  const toasts = useAppSelector((s) => s.ui.toasts);
+  
   // Map of task id → timeout id
   const timers = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
+  const toastTimers = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
 
   useEffect(() => {
     pendingDeletes.forEach(({ id }) => {
@@ -34,14 +37,28 @@ export default function ToastProvider() {
     });
   }, [pendingDeletes, dispatch]);
 
+  // Effect for generic toasts
+  useEffect(() => {
+    toasts.forEach(({ id }) => {
+      if (!toastTimers.current.has(id)) {
+        const timer = setTimeout(() => {
+          toastTimers.current.delete(id);
+          dispatch(removeToast(id));
+        }, 3000);
+        toastTimers.current.set(id, timer);
+      }
+    });
+  }, [toasts, dispatch]);
+
   // Cleanup all timers on unmount
   useEffect(() => {
     return () => {
       timers.current.forEach((t) => clearTimeout(t));
+      toastTimers.current.forEach((t) => clearTimeout(t));
     };
   }, []);
 
-  if (pendingDeletes.length === 0) return null;
+  if (pendingDeletes.length === 0 && toasts.length === 0) return null;
 
   return (
     <div
@@ -100,6 +117,35 @@ export default function ToastProvider() {
           >
             Undo
           </button>
+        </div>
+      ))}
+
+      {toasts.map(({ id, message, icon, iconColor }) => (
+        <div
+          key={id}
+          className="
+            pointer-events-auto
+            flex items-center gap-3
+            bg-[#1A202C] dark:bg-[#E2E8F0]
+            text-white dark:text-[#1A202C]
+            text-[13px] font-semibold
+            px-4 py-3 rounded-2xl
+            shadow-xl shadow-black/20
+            animate-[slideDown_0.2s_ease-out]
+            min-w-[260px] max-w-[340px]
+          "
+        >
+          {icon && (
+            <span
+              className={`material-symbols-outlined shrink-0 ${iconColor || 'text-violet-400 dark:text-violet-500'}`}
+              style={{ fontSize: "18px" }}
+            >
+              {icon}
+            </span>
+          )}
+          <span className="flex-1 truncate">
+            {message}
+          </span>
         </div>
       ))}
     </div>

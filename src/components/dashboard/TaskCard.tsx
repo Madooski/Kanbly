@@ -4,8 +4,9 @@ import type { TaskCard as TaskCardType, TaskStatus } from "@/types";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { selectColumnLabels } from "@/store/appSlice";
 import { moveTaskStatus } from "@/store/tasksSlice";
-import { enqueuePendingDelete } from "@/store/uiSlice";
+import { enqueuePendingDelete, enqueueToast } from "@/store/uiSlice";
 import { relativeTimeString } from "@/utils/time";
+import { fireConfetti } from "@/utils/confetti";
 
 // Tag colour map — expand as new tags are introduced
 const TAG_COLOURS: Record<string, string> = {
@@ -139,6 +140,15 @@ export default function TaskCard({ card }: TaskCardProps) {
               onClick={(e) => {
                 e.stopPropagation();
                 dispatch(moveTaskStatus({ id: card.id, status: next.nextStatus }));
+                if (next.nextStatus === 'scheduled') {
+                  fireConfetti();
+                  dispatch(enqueueToast({
+                    id: crypto.randomUUID(),
+                    message: `Task completed!`,
+                    icon: 'check_circle',
+                    iconColor: 'text-emerald-400 dark:text-emerald-500'
+                  }));
+                }
               }}
               className="flex items-center gap-0.5 text-[11px] font-semibold text-[#A0AEC0] dark:text-white/30 hover:text-[#6b38d4] dark:hover:text-violet-400 transition-colors duration-200"
             >

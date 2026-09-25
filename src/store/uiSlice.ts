@@ -5,12 +5,21 @@ export interface PendingDelete {
   title: string;    // shown in toast
 }
 
+export interface GenericToast {
+  id: string;
+  message: string;
+  icon?: string;
+  iconColor?: string;
+}
+
 interface UIState {
   pendingDeletes: PendingDelete[];
+  toasts: GenericToast[];
 }
 
 const initialState: UIState = {
   pendingDeletes: [],
+  toasts: [],
 };
 
 export const uiSlice = createSlice({
@@ -33,10 +42,16 @@ export const uiSlice = createSlice({
         (d) => d.id !== action.payload
       );
     },
+    enqueueToast: (state, action: PayloadAction<GenericToast>) => {
+      state.toasts.push(action.payload);
+    },
+    removeToast: (state, action: PayloadAction<string>) => {
+      state.toasts = state.toasts.filter((t) => t.id !== action.payload);
+    },
   },
 });
 
-export const { enqueuePendingDelete, cancelPendingDelete, commitPendingDelete } =
+export const { enqueuePendingDelete, cancelPendingDelete, commitPendingDelete, enqueueToast, removeToast } =
   uiSlice.actions;
 
 export default uiSlice.reducer;
