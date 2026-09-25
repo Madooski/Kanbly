@@ -34,16 +34,41 @@ export default function BoardArea() {
 
   return (
     <>
-      <div className="flex gap-5 overflow-x-auto pb-4 mb-6 lg:mb-8 px-6 pt-6 flex-1 min-h-0 bg-[#FAFBFC] dark:bg-transparent snap-x snap-mandatory">
-        {columns.map((col, idx) => (
-          <BoardColumn
-            key={idx}
-            column={col}
-            isFirstColumn={idx === 0}
-            onAddTask={() => setIsModalOpen(true)}
-          />
-        ))}
-      </div>
+      {tasks.length === 0 ? (
+        <div className="flex flex-col items-center justify-center flex-1 h-full opacity-80 text-center px-6">
+          <div className="w-20 h-20 bg-[#f0f2f8] dark:bg-white/5 rounded-full flex items-center justify-center mb-6">
+            <span className="material-symbols-outlined text-4xl text-violet-400 dark:text-violet-500">
+              inbox
+            </span>
+          </div>
+          <h2 className="text-xl font-bold text-[#0d1c2d] dark:text-white mb-2">
+            Your board is empty
+          </h2>
+          <p className="text-[#494454] dark:text-white/50 text-sm max-w-sm mb-8">
+            You don't have any tasks in this workspace yet. Create a new task to get started!
+          </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#6b38d4] hover:bg-[#5516be] transition-all duration-200 shadow-[0_4px_12px_rgba(107,56,212,0.2)] hover:-translate-y-[1px]"
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
+              add
+            </span>
+            Create New Task
+          </button>
+        </div>
+      ) : (
+        <div className="flex gap-5 overflow-x-auto pb-4 mb-6 lg:mb-8 px-6 pt-6 flex-1 min-h-0 bg-[#FAFBFC] dark:bg-transparent snap-x snap-mandatory">
+          {columns.map((col, idx) => (
+            <BoardColumn
+              key={idx}
+              column={col}
+              isFirstColumn={idx === 0}
+              onAddTask={() => setIsModalOpen(true)}
+            />
+          ))}
+        </div>
+      )}
 
       <AddTaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>

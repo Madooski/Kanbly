@@ -23,6 +23,9 @@ export const appSlice = createSlice({
     toggleSidebar: (state) => {
       state.isSidebarOpen = !state.isSidebarOpen;
     },
+    setSidebarOpen: (state, action: PayloadAction<boolean>) => {
+      state.isSidebarOpen = action.payload;
+    },
     logout: (state) => {
       state.currentField = null;
       state.isSidebarOpen = false;
@@ -30,7 +33,7 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setCurrentField, toggleSidebar, logout } = appSlice.actions;
+export const { setCurrentField, toggleSidebar, setSidebarOpen, logout } = appSlice.actions;
 
 export const selectColumnLabels = (state: RootState) => {
   const currentField = state.app.currentField;

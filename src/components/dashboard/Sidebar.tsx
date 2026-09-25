@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import { FIELDS } from "@/context/AppContext";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { logout, toggleSidebar } from "@/store/appSlice";
+import { logout, toggleSidebar, setSidebarOpen } from "@/store/appSlice";
 
 const NAV_ITEMS = [
   { label: "My Board", icon: "dashboard", id: "board" },
@@ -19,6 +20,14 @@ export default function Sidebar() {
 
   const fieldMeta = FIELDS.find((f) => f.id === currentField);
   const displayField = fieldMeta ?? { title: "Workspace", icon: "grid_view" };
+
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      dispatch(setSidebarOpen(false));
+    } else {
+      dispatch(setSidebarOpen(true));
+    }
+  }, [dispatch]);
 
   return (
     <>
