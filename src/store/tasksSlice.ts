@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { TaskCard, TaskStatus, TaskStage, FieldId } from '@/types';
 import { SEED_TASKS } from '@/config/seedTasks';
+import type { RootState } from './store';
 
 interface TasksState {
   tasks: TaskCard[];
@@ -65,5 +66,7 @@ export const tasksSlice = createSlice({
 
 export const { seedTasksForRole, addTask, deleteTask, moveTaskStatus, moveTaskStage, archiveTask } =
   tasksSlice.actions;
+
+export const selectAllTasks = (state: RootState) => state.tasks.tasks;
 
 export default tasksSlice.reducer;

@@ -1,13 +1,30 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { useApp } from "@/context/AppContext";
 import { useAppDispatch } from "@/store/hooks";
 import { toggleSidebar, logout } from "@/store/appSlice";
 
-export default function TopNavbar() {
+interface TopNavbarProps {
+  onSearchChange: (query: string) => void;
+}
+
+export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
   const { isDarkMode, toggleDarkMode } = useApp();
   const dispatch = useAppDispatch();
+  const [searchInput, setSearchInput] = useState("");
 
+  useEffect(() => {
+    const query = searchInput.trim();
+    if (!query) {
+      onSearchChange("");
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => onSearchChange(query), 250);
+    return () => window.clearTimeout(timeoutId);
+  }, [searchInput, onSearchChange]);
   return (
     <nav className="flex items-center justify-between px-4 h-16 border-b border-[#cbc3d7]/30 dark:border-white/8 bg-white dark:bg-[#0f0f1a]/80 backdrop-blur-sm flex-shrink-0 z-20">
       {/* Left: menu toggle + brand */}
@@ -46,7 +63,9 @@ export default function TopNavbar() {
           </span>
           <input
             type="text"
-            placeholder="Search tasks or insights..."
+            placeholder="Search tasks..."
+            value={searchInput}
+            onChange={(event) => setSearchInput(event.target.value)}
             className="bg-transparent text-[#0d1c2d] dark:text-white text-sm placeholder-[#494454]/60 dark:placeholder-white/30 outline-none flex-1 min-w-0 font-medium"
           />
         </div>
