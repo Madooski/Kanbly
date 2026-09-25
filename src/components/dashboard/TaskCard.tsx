@@ -4,6 +4,7 @@ import type { TaskCard as TaskCardType, TaskStatus } from "@/types";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { selectColumnLabels } from "@/store/appSlice";
 import { moveTaskStatus } from "@/store/tasksSlice";
+import { enqueuePendingDelete } from "@/store/uiSlice";
 import { relativeTimeString } from "@/utils/time";
 
 // Tag colour map — expand as new tags are introduced
@@ -78,7 +79,27 @@ export default function TaskCard({ card }: TaskCardProps) {
   const next = getNextStep(card.status, labels);
 
   return (
-    <div className="group bg-white dark:bg-white/5 hover:bg-[#FAFBFC] dark:hover:bg-white/8 border border-[#E2E8F0] dark:border-white/10 dark:hover:border-white/20 rounded-2xl p-4 flex flex-col gap-3 transition-all duration-200 shadow-sm dark:shadow-none hover:shadow-md hover:shadow-black/5 dark:hover:shadow-black/20 hover:-translate-y-[2px] cursor-pointer">
+    <div className="relative group bg-white dark:bg-white/5 hover:bg-[#FAFBFC] dark:hover:bg-white/8 border border-[#E2E8F0] dark:border-white/10 dark:hover:border-white/20 rounded-2xl p-4 flex flex-col gap-3 transition-all duration-200 shadow-sm dark:shadow-none hover:shadow-md hover:shadow-black/5 dark:hover:shadow-black/20 hover:-translate-y-[2px] cursor-pointer">
+      {/* Delete button — always visible on mobile, hover-only on desktop */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          dispatch(enqueuePendingDelete({ id: card.id, title: card.title }));
+        }}
+        aria-label="Delete task"
+        className="
+          absolute top-2.5 right-2.5
+          opacity-100 sm:opacity-0 sm:group-hover:opacity-100
+          transition-opacity duration-200
+          w-[22px] h-[22px] rounded-full
+          flex items-center justify-center
+          bg-red-500/10 hover:bg-red-500/20
+          text-red-400 hover:text-red-500
+          text-[14px] font-bold leading-none
+        "
+      >
+        ×
+      </button>
       {/* Header: tag */}
       <div className="flex items-center justify-between">
         <span
