@@ -14,27 +14,30 @@ export default function BoardArea() {
   const labels = useAppSelector(selectColumnLabels);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Exclude archived and planning tasks from the active board view
+  const activeTasks = tasks.filter((t) => t.stage !== "archived" && t.status !== "planning");
+
   const columns: BoardColumnData[] = [
     {
       title: labels.drafting,
-      cards: tasks.filter((t) => t.status === "drafting"),
-      count: tasks.filter((t) => t.status === "drafting").length,
+      cards: activeTasks.filter((t) => t.status === "drafting"),
+      count: activeTasks.filter((t) => t.status === "drafting").length,
     },
     {
       title: labels.review,
-      cards: tasks.filter((t) => t.status === "review"),
-      count: tasks.filter((t) => t.status === "review").length,
+      cards: activeTasks.filter((t) => t.status === "review"),
+      count: activeTasks.filter((t) => t.status === "review").length,
     },
     {
       title: labels.scheduled,
-      cards: tasks.filter((t) => t.status === "scheduled"),
-      count: tasks.filter((t) => t.status === "scheduled").length,
+      cards: activeTasks.filter((t) => t.status === "scheduled"),
+      count: activeTasks.filter((t) => t.status === "scheduled").length,
     },
   ];
 
   return (
     <>
-      {tasks.length === 0 ? (
+      {activeTasks.length === 0 ? (
         <div className="flex flex-col items-center justify-center flex-1 h-full opacity-80 text-center px-6">
           <div className="w-20 h-20 bg-[#f0f2f8] dark:bg-white/5 rounded-full flex items-center justify-center mb-6">
             <span className="material-symbols-outlined text-4xl text-violet-400 dark:text-violet-500">
@@ -64,6 +67,7 @@ export default function BoardArea() {
               key={idx}
               column={col}
               isFirstColumn={idx === 0}
+              isLastColumn={idx === columns.length - 1}
               onAddTask={() => setIsModalOpen(true)}
             />
           ))}

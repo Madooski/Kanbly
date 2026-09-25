@@ -22,14 +22,14 @@ export const tasksSlice = createSlice({
     },
     addTask: (
       state,
-      action: PayloadAction<{ tag: string; title: string; description: string; dueDate: string }>
+      action: PayloadAction<{ tag: string; title: string; description: string; dueDate: string; status?: TaskStatus; targetStartDate?: string }>
     ) => {
       state.tasks.push({
         ...action.payload,
         id: crypto.randomUUID(),
         comments: 0,
         avatars: [],
-        status: 'drafting',
+        status: action.payload.status || 'drafting',
         stage: 'active',
       });
     },
@@ -48,6 +48,11 @@ export const tasksSlice = createSlice({
         }
       }
     },
+    archiveTask: (state, action: PayloadAction<string>) => {
+      const task = state.tasks.find((t) => t.id === action.payload);
+      if (task) task.stage = 'archived';
+    },
+
     moveTaskStage: (
       state,
       action: PayloadAction<{ id: string; stage: TaskStage }>
@@ -58,7 +63,7 @@ export const tasksSlice = createSlice({
   },
 });
 
-export const { seedTasksForRole, addTask, deleteTask, moveTaskStatus, moveTaskStage } =
+export const { seedTasksForRole, addTask, deleteTask, moveTaskStatus, moveTaskStage, archiveTask } =
   tasksSlice.actions;
 
 export default tasksSlice.reducer;

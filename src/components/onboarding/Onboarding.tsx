@@ -84,7 +84,7 @@ export default function Onboarding() {
             >
               colors_spark
             </span>
-            AI-Powered Workspace
+            Productivity Workspace
           </div>
 
           {/* Title */}
@@ -100,7 +100,7 @@ export default function Onboarding() {
               <span
                 className="block animate-[slideUp_0.7s_cubic-bezier(0.16,1,0.3,1)_0.35s_both] text-[#6b38d4] dark:text-transparent dark:bg-gradient-to-r dark:from-violet-400 dark:to-indigo-400 dark:bg-clip-text"
               >
-                intelligence
+                productivity
               </span>
             </span>
             <span className="overflow-hidden block">
@@ -115,7 +115,7 @@ export default function Onboarding() {
           {/* Subtitle */}
           <p className="text-[#494454] dark:text-white/60 text-[18px] leading-[1.625] max-w-md animate-[fadeIn_0.8s_0.6s_both]">
             <WordReveal
-              text="Select your professional archetype so we can curate the right AI insights and Kanban flows for your daily narrative."
+              text="Select your professional archetype so we can curate the right workflow and Kanban flows for your daily narrative."
               baseDelay={0.6}
             />
           </p>

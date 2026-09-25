@@ -12,8 +12,8 @@ export interface Field {
   icon: string;
 }
 
-export type TaskStatus = 'drafting' | 'review' | 'scheduled';
-export type TaskStage = 'planning' | 'active' | 'published';
+export type TaskStatus = 'planning' | 'drafting' | 'review' | 'scheduled';
+export type TaskStage = 'active' | 'archived';
 
 export interface TaskCard {
   id: string;
@@ -23,6 +23,7 @@ export interface TaskCard {
   avatars: string[];
   comments: number;
   dueDate: string;
+  targetStartDate?: string;
   status: TaskStatus;
   stage: TaskStage;
 }

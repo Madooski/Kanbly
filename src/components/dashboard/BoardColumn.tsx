@@ -6,10 +6,11 @@ import TaskCard from "./TaskCard";
 interface BoardColumnProps {
   column: BoardColumnData;
   isFirstColumn?: boolean;
+  isLastColumn?: boolean;
   onAddTask: () => void;
 }
 
-export default function BoardColumn({ column, isFirstColumn, onAddTask }: BoardColumnProps) {
+export default function BoardColumn({ column, isFirstColumn, isLastColumn, onAddTask }: BoardColumnProps) {
   return (
     <div className="flex flex-col gap-3 min-w-[85vw] md:min-w-[300px] flex-1 min-h-0 snap-center">
       {/* Column Header */}
@@ -25,10 +26,10 @@ export default function BoardColumn({ column, isFirstColumn, onAddTask }: BoardC
       {/* Cards */}
       <div className="flex flex-col gap-3 overflow-y-auto pr-1 pb-4 min-h-0">
         {column.cards.map((card) => (
-          <TaskCard key={card.id} card={card} />
+          <TaskCard key={card.id} card={card} showArchiveMenu={!!isLastColumn} />
         ))}
 
-        {/* Inline create button — first column only, since new tasks always land in drafting */}
+        {/* Inline create button — first column only */}
         {isFirstColumn && (
           <button
             onClick={onAddTask}

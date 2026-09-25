@@ -1,15 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { setActiveView } from "@/store/appSlice";
+import type { ActiveView } from "@/store/appSlice";
 
-const TABS = [
-  { label: "Planning", count: 4 },
-  { label: "Active", count: 4 },
-  { label: "Published", count: 3 },
+const TABS: { label: string; view: ActiveView }[] = [
+  { label: "Planning", view: "planning" },
+  { label: "Active",   view: "board" },
 ];
 
 export default function TopHeader() {
-  const [activeTab, setActiveTab] = useState("Active");
+  const activeView = useAppSelector((state) => state.app.activeView);
+  const dispatch = useAppDispatch();
+
+  const tasks = useAppSelector((state) => state.tasks.tasks);
+  const planningCount = tasks.filter((t) => t.status === "planning" && t.stage !== "archived").length;
+  const activeCount   = tasks.filter((t) => t.status !== "planning" && t.stage !== "archived").length;
+
+  const countFor = (view: ActiveView) => {
+    if (view === "planning") return planningCount;
+    if (view === "board")    return activeCount;
+    return 0;
+  };
+
+  // Only show tab highlight for planning/board — archive uses sidebar
+  const effectiveTab = activeView === "archive" ? null : activeView;
 
   return (
     <div className="flex items-center justify-between px-6 py-4 lg:px-12 lg:pt-4 lg:pb-2 border-b border-[#cbc3d7]/30 dark:border-white/8 bg-[#FAFBFC] dark:bg-transparent lg:rounded-tr-3xl flex-shrink-0">
@@ -21,11 +36,11 @@ export default function TopHeader() {
       {/* Tabs */}
       <div className="flex items-center gap-1 bg-transparent dark:bg-white/5 rounded-xl p-1">
         {TABS.map((tab) => {
-          const isActive = tab.label === activeTab;
+          const isActive = effectiveTab === tab.view;
           return (
             <button
-              key={tab.label}
-              onClick={() => setActiveTab(tab.label)}
+              key={tab.view}
+              onClick={() => dispatch(setActiveView(tab.view))}
               className={[
                 "px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 flex gap-1.5 items-center",
                 isActive
@@ -40,7 +55,7 @@ export default function TopHeader() {
                   isActive ? "text-white/80 dark:text-white/60" : "text-[#A0AEC0] dark:text-white/30",
                 ].join(" ")}
               >
-                ({tab.count})
+                ({countFor(tab.view)})
               </span>
             </button>
           );

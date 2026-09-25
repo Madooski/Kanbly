@@ -30,6 +30,7 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
   const [tag, setTag] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState(todayPlusOne());
+  const [planChoice, setPlanChoice] = useState<"now" | "later">("now");
 
   const titleRef = useRef<HTMLInputElement>(null);
 
@@ -40,6 +41,7 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
       setTag(roleTags[0] ?? "");
       setDescription("");
       setDueDate(todayPlusOne());
+      setPlanChoice("now");
       // Delay focus so the modal has painted
       setTimeout(() => titleRef.current?.focus(), 50);
     }
@@ -68,6 +70,12 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
         dueDate: dueDate
           ? new Date(dueDate).toISOString()
           : new Date().toISOString(),
+        ...(planChoice === "later" && {
+          status: "planning",
+          targetStartDate: dueDate
+            ? new Date(dueDate).toISOString()
+            : new Date().toISOString(),
+        }),
       })
     );
     onClose();
@@ -177,10 +185,10 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
             />
           </div>
 
-          {/* Due Date */}
+          {/* Due Date / Target Start Date */}
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-bold uppercase tracking-wider text-[#494454] dark:text-white/50">
-              Due Date
+              {planChoice === "now" ? "Due Date" : "Target Start Date"}
             </label>
             <input
               type="date"
@@ -188,6 +196,37 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
               onChange={(e) => setDueDate(e.target.value)}
               className="w-full px-4 py-2.5 rounded-xl bg-[#f8f9ff] dark:bg-white/5 border border-[#cbc3d7]/40 dark:border-white/10 text-[#0d1c2d] dark:text-white text-sm outline-none focus:border-violet-400 dark:focus:border-violet-500 focus:ring-2 focus:ring-violet-400/20 transition-all duration-200"
             />
+          </div>
+
+          {/* Start Choice */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#494454] dark:text-white/50">
+              Timing
+            </label>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setPlanChoice("now")}
+                className={`flex-1 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-200 ${
+                  planChoice === "now"
+                    ? "bg-violet-50 dark:bg-violet-500/10 border-violet-400 text-violet-700 dark:text-violet-300"
+                    : "bg-[#f8f9ff] dark:bg-white/5 border-[#cbc3d7]/40 dark:border-white/10 text-[#494454] dark:text-white/50 hover:bg-[#f0f0f5] dark:hover:bg-white/8"
+                }`}
+              >
+                Start now
+              </button>
+              <button
+                type="button"
+                onClick={() => setPlanChoice("later")}
+                className={`flex-1 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-200 ${
+                  planChoice === "later"
+                    ? "bg-violet-50 dark:bg-violet-500/10 border-violet-400 text-violet-700 dark:text-violet-300"
+                    : "bg-[#f8f9ff] dark:bg-white/5 border-[#cbc3d7]/40 dark:border-white/10 text-[#494454] dark:text-white/50 hover:bg-[#f0f0f5] dark:hover:bg-white/8"
+                }`}
+              >
+                Plan for later
+              </button>
+            </div>
           </div>
 
           {/* Known limitation note */}
