@@ -37,7 +37,6 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
   // Reset form and focus title whenever modal opens
   useEffect(() => {
     if (isOpen) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTitle("");
       setTag(roleTags[0] ?? "");
       setDescription("");
@@ -46,7 +45,6 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
       // Delay focus so the modal has painted
       setTimeout(() => titleRef.current?.focus(), 50);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   // Close on Escape
@@ -209,8 +207,8 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
                 type="button"
                 onClick={() => setPlanChoice("now")}
                 className={`flex-1 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-200 ${planChoice === "now"
-                    ? "bg-violet-50 dark:bg-violet-500/10 border-violet-400 text-violet-700 dark:text-violet-300"
-                    : "bg-[#f8f9ff] dark:bg-white/5 border-[#cbc3d7]/40 dark:border-white/10 text-[#494454] dark:text-white/50 hover:bg-[#f0f0f5] dark:hover:bg-white/8"
+                  ? "bg-violet-50 dark:bg-violet-500/10 border-violet-400 text-violet-700 dark:text-violet-300"
+                  : "bg-[#f8f9ff] dark:bg-white/5 border-[#cbc3d7]/40 dark:border-white/10 text-[#494454] dark:text-white/50 hover:bg-[#f0f0f5] dark:hover:bg-white/8"
                   }`}
               >
                 Start now
@@ -219,8 +217,8 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
                 type="button"
                 onClick={() => setPlanChoice("later")}
                 className={`flex-1 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-200 ${planChoice === "later"
-                    ? "bg-violet-50 dark:bg-violet-500/10 border-violet-400 text-violet-700 dark:text-violet-300"
-                    : "bg-[#f8f9ff] dark:bg-white/5 border-[#cbc3d7]/40 dark:border-white/10 text-[#494454] dark:text-white/50 hover:bg-[#f0f0f5] dark:hover:bg-white/8"
+                  ? "bg-violet-50 dark:bg-violet-500/10 border-violet-400 text-violet-700 dark:text-violet-300"
+                  : "bg-[#f8f9ff] dark:bg-white/5 border-[#cbc3d7]/40 dark:border-white/10 text-[#494454] dark:text-white/50 hover:bg-[#f0f0f5] dark:hover:bg-white/8"
                   }`}
               >
                 Plan for later
