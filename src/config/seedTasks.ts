@@ -8,6 +8,15 @@ function daysFromNow(days: number): string {
   return d.toISOString();
 }
 
+/**
+ * SEED_TASKS
+ * ----------
+ * Hardcoded example tasks used to populate a user's board immediately
+ * after onboarding, based on their selected field/role. This is
+ * illustrative demo content only — not fetched from a backend and
+ * not meant to represent real user data.
+ */
+
 export const SEED_TASKS: Record<FieldId, Omit<TaskCard, "id">[]> = {
   freelancer: [
     {

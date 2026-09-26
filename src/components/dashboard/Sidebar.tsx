@@ -8,7 +8,6 @@ import type { ActiveView } from "@/store/appSlice";
 
 const NAV_ITEMS: { label: string; icon: string; id: ActiveView | string }[] = [
   { label: "My Board", icon: "dashboard", id: "board" },
-  { label: "Team", icon: "group", id: "team" },
   { label: "Archive", icon: "archive", id: "archive" },
   { label: "Settings", icon: "settings", id: "settings" },
 ];

@@ -1,19 +1,36 @@
-     WORK IN PROGRESS
-# React + Vite
+# Kanbly
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight Kanban workspace built as a personal project. Kanbly helps users organize work through role-based workflows, planning, and task progression from active work to archive.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Role-based onboarding (Student, Freelancer, HR/Ops, Developer, Marketer, and more) with seeded example tasks
+- Kanban board with stage-based task progression using move actions
+- Planning tab for tasks scheduled to start later
+- Archive for completed tasks
+- Per-task actions through a context menu (archive, move back, delete where applicable)
+- Full-text search across task titles and tags
+- Light and dark mode with a settings menu
+- Confetti celebration when a task reaches the final stage
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Next.js (App Router)
+- TypeScript
+- Redux Toolkit
+- React Context
+- Tailwind CSS
 
-Note: This will impact Vite dev & build performances.
+## Known Limitations
 
-## Expanding the ESLint configuration
+- Data is stored in `localStorage`, so it doesn't sync across devices.
+- Switching roles or logging out resets saved task data (by design).
+- New users are seeded with demo tasks based on their selected role.
+- No automated tests yet.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
