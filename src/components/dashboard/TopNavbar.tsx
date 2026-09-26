@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import { useApp } from "@/context/AppContext";
 import { useAppDispatch } from "@/store/hooks";
 import { toggleSidebar, logout } from "@/store/appSlice";
 
@@ -11,7 +10,6 @@ interface TopNavbarProps {
 }
 
 export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
-  const { isDarkMode, toggleDarkMode } = useApp();
   const dispatch = useAppDispatch();
   const [searchInput, setSearchInput] = useState("");
 
@@ -90,15 +88,6 @@ export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
           <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-violet-400" />
         </button>
 
-        <button
-          onClick={toggleDarkMode}
-          className="w-9 h-9 flex items-center justify-center rounded-xl text-[#494454] dark:text-white/50 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 hover:text-[#6b38d4] transition-all duration-200"
-          title="Toggle Dark Mode"
-        >
-          <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
-            {isDarkMode ? "light_mode" : "dark_mode"}
-          </span>
-        </button>
 
         <button className="w-9 h-9 flex items-center justify-center rounded-xl text-[#494454] dark:text-white/50 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 hover:text-[#6b38d4] transition-all duration-200">
           <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
