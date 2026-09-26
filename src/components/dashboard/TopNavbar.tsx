@@ -45,9 +45,9 @@ export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
             auto_awesome
           </span>
           <span className="text-[#0d1c2d] dark:text-white font-bold text-lg tracking-tight">
-            Kaban{" "}
+            Kanbly{" "}
             <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
-              Smart
+
             </span>
           </span>
         </div>

@@ -11,9 +11,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Kaban Smart — AI-Powered Kanban Workspace",
+  title: "Kanbly — Kanban Productivity Workspace",
   description:
-    "An intelligent Kanban board tailored to your professional archetype. Plan, organize, and ship with AI-powered insights.",
+    "A flexible Kanban workspace tailored to your workflow. Plan, organize, and manage your tasks with ease.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
