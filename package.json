@@ -17,6 +17,7 @@
     "react-redux": "^9.3.0"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.16.0",
     "@tailwindcss/postcss": "^4",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^20",
