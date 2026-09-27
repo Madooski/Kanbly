@@ -167,7 +167,8 @@ export default function Onboarding() {
                 />
               </div>
               <span className="text-[#494454] dark:text-white/40 text-[10px] sm:text-xs font-bold uppercase tracking-widest whitespace-nowrap">
-                Step {displayStep} of 3
+                <span className="hidden sm:inline">Step </span>{displayStep}
+                <span className="sm:hidden">/</span><span className="hidden sm:inline"> of </span>3
               </span>
             </div>
 
