@@ -58,14 +58,14 @@ export default function Sidebar() {
 
       <aside
         className={[
-          "flex flex-col bg-white dark:bg-[#0a0a14] border-r border-[#cbc3d7]/30 dark:border-white/8 transition-all duration-300 overflow-hidden flex-shrink-0 z-40",
-          "absolute md:relative h-full",
+          "flex flex-col bg-white dark:bg-[#0a0a14] border-r border-[#cbc3d7]/30 dark:border-white/8 transition-all duration-300 overflow-hidden flex-shrink-0 z-50",
+          "fixed inset-y-0 left-0 md:relative h-full",
           isSidebarOpen
             ? "w-64 md:w-56 translate-x-0 opacity-100"
             : "w-64 md:w-0 -translate-x-full md:translate-x-0 md:opacity-0 md:pointer-events-none",
         ].join(" ")}
       >
-        <div className="flex flex-col h-full p-3 gap-4 min-w-[224px]">
+        <div className="flex flex-col h-full p-2 sm:p-3 gap-3 sm:gap-4 min-w-[224px] overflow-y-auto">
           {/* Mobile-only top bar: brand + close button */}
           <div className="flex items-center justify-between md:hidden">
             <div className="flex items-center gap-2">
@@ -91,7 +91,7 @@ export default function Sidebar() {
             </button>
           </div>
           {/* User Profile */}
-          <div className="flex items-center gap-3 p-3 rounded-2xl bg-[#f8f9ff] dark:bg-white/5 border border-[#cbc3d7]/30 dark:border-white/8">
+          <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-2xl bg-[#f8f9ff] dark:bg-white/5 border border-[#cbc3d7]/30 dark:border-white/8">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center flex-shrink-0">
               <span
                 className="material-symbols-outlined text-white"
@@ -123,7 +123,7 @@ export default function Sidebar() {
                     <button
                       onClick={() => setSettingsOpen((o) => !o)}
                       className={[
-                        "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
+                        "w-full flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
                         settingsOpen
                           ? "bg-[#e9ddff] dark:bg-violet-600/20 text-[#6b38d4] dark:text-violet-300"
                           : "text-[#494454] dark:text-white/50 hover:text-[#6b38d4] dark:hover:text-white hover:bg-[#e9ddff]/50 dark:hover:bg-white/8",
@@ -197,7 +197,7 @@ export default function Sidebar() {
                     }
                   }}
                   className={[
-                    "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
+                    "flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
                     isActive
                       ? "bg-[#e9ddff] dark:bg-violet-600/20 text-[#6b38d4] dark:text-violet-300 border border-transparent dark:border-violet-500/20"
                       : "text-[#494454] dark:text-white/50 hover:text-[#6b38d4] dark:hover:text-white hover:bg-[#e9ddff]/50 dark:hover:bg-white/8",
@@ -216,7 +216,7 @@ export default function Sidebar() {
           <div className="flex flex-col gap-1.5">
             <button
               onClick={() => dispatch(logout())}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#ba1a1a] dark:text-white/40 hover:bg-[#ffdad6] dark:hover:bg-red-500/10 transition-all duration-200"
+              className="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 rounded-xl text-sm font-medium text-[#ba1a1a] dark:text-white/40 hover:bg-[#ffdad6] dark:hover:bg-red-500/10 transition-all duration-200 mt-auto"
             >
               <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
                 logout

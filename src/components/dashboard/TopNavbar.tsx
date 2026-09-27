@@ -24,9 +24,9 @@ export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
     return () => window.clearTimeout(timeoutId);
   }, [searchInput, onSearchChange]);
   return (
-    <nav className="flex items-center justify-between px-4 h-16 border-b border-[#cbc3d7]/30 dark:border-white/8 bg-white dark:bg-[#0f0f1a]/80 backdrop-blur-sm flex-shrink-0 z-20">
+    <nav className="flex items-center justify-between px-2 sm:px-4 h-16 border-b border-[#cbc3d7]/30 dark:border-white/8 bg-white dark:bg-[#0f0f1a]/80 backdrop-blur-sm flex-shrink-0 z-20 gap-1 sm:gap-2 overflow-x-hidden">
       {/* Left: menu toggle + brand */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1 sm:gap-3 shrink-0">
         <button
           onClick={() => dispatch(toggleSidebar())}
           className="w-9 h-9 flex items-center justify-center rounded-xl text-[#0d1c2d] dark:text-white/60 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 transition-all duration-200"
@@ -37,7 +37,7 @@ export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
           </span>
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 hidden sm:flex">
           <span
             className="material-symbols-outlined text-violet-400"
             style={{ fontVariationSettings: "'FILL' 1", fontSize: "22px" }}
@@ -54,14 +54,14 @@ export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
       </div>
 
       {/* Center: search */}
-      <div className="flex-1 max-w-sm mx-6">
-        <div className="flex items-center gap-2 bg-[#f0f2f8] dark:bg-white/5 border border-transparent dark:border-white/10 rounded-xl px-3 py-2 focus-within:border-[#6b38d4]/50 dark:focus-within:border-violet-500/50 dark:focus-within:bg-white/8 transition-all duration-200">
-          <span className="material-symbols-outlined text-[#494454] dark:text-white/30" style={{ fontSize: "18px" }}>
+      <div className="flex-1 max-w-sm mx-2 sm:mx-6 min-w-0">
+        <div className="flex items-center gap-2 bg-[#f0f2f8] dark:bg-white/5 border border-transparent dark:border-white/10 rounded-xl px-2 sm:px-3 py-2 focus-within:border-[#6b38d4]/50 dark:focus-within:border-violet-500/50 dark:focus-within:bg-white/8 transition-all duration-200">
+          <span className="material-symbols-outlined text-[#494454] dark:text-white/30 shrink-0" style={{ fontSize: "18px" }}>
             search
           </span>
           <input
             type="text"
-            placeholder="Search tasks..."
+            placeholder="Search..."
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
             className="bg-transparent text-[#0d1c2d] dark:text-white text-sm placeholder-[#494454]/60 dark:placeholder-white/30 outline-none flex-1 min-w-0 font-medium"
@@ -70,18 +70,18 @@ export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
       </div>
 
       {/* Right: actions */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 sm:gap-2 shrink-0">
         <button
           onClick={() => dispatch(logout())}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#6b38d4] dark:border-white/10 text-[#6b38d4] dark:text-white/50 text-xs font-bold uppercase tracking-wider bg-[#e9ddff] dark:bg-transparent hover:bg-[#6b38d4] hover:text-white dark:hover:border-violet-500/40 dark:hover:bg-violet-500/10 transition-all duration-200 hover:shadow-[0_4px_12px_rgba(107,56,212,0.2)] dark:hover:shadow-none"
+          className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-[#6b38d4] dark:border-white/10 text-[#6b38d4] dark:text-white/50 text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-[#e9ddff] dark:bg-transparent hover:bg-[#6b38d4] hover:text-white dark:hover:border-violet-500/40 dark:hover:bg-violet-500/10 transition-all duration-200 hover:shadow-[0_4px_12px_rgba(107,56,212,0.2)] dark:hover:shadow-none whitespace-nowrap"
         >
           <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>
             swap_horiz
           </span>
-          <span className="hidden sm:inline">Change Field</span>
+          <span className="inline">Change Field</span>
         </button>
 
-        <button className="relative w-9 h-9 flex items-center justify-center rounded-xl text-[#494454] dark:text-white/50 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 hover:text-[#6b38d4] transition-all duration-200">
+        <button className="relative w-9 h-9 hidden sm:flex items-center justify-center rounded-xl text-[#494454] dark:text-white/50 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 hover:text-[#6b38d4] transition-all duration-200">
           <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
             notifications
           </span>
@@ -89,7 +89,7 @@ export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
         </button>
 
 
-        <button className="w-9 h-9 flex items-center justify-center rounded-xl text-[#494454] dark:text-white/50 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 hover:text-[#6b38d4] transition-all duration-200">
+        <button className="w-9 h-9 hidden sm:flex items-center justify-center rounded-xl text-[#494454] dark:text-white/50 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 hover:text-[#6b38d4] transition-all duration-200">
           <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
             help
           </span>
