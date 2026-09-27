@@ -76,10 +76,7 @@ export default function Sidebar() {
                 auto_awesome
               </span>
               <span className="text-[#0d1c2d] dark:text-white font-bold text-base tracking-tight">
-                Kaban{" "}
-                <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
-                  Smart
-                </span>
+                Kanbly
               </span>
             </div>
             <button

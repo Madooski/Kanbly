@@ -159,14 +159,14 @@ export default function Onboarding() {
           {/* Footer: step + button */}
           <div className="flex items-center justify-between gap-4 pt-2">
             {/* Step indicator */}
-            <div className="flex flex-col gap-1.5 flex-1">
-              <div className="h-1 bg-[#dbe9ff] dark:bg-white/10 rounded-full overflow-hidden">
+            <div className="flex flex-row items-center sm:flex-col sm:items-start gap-3 sm:gap-1.5 flex-1 min-w-0">
+              <div className="flex-1 sm:w-full h-1 bg-[#dbe9ff] dark:bg-white/10 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-[#6b38d4] dark:bg-gradient-to-r dark:from-violet-500 dark:to-indigo-500 rounded-full transition-all duration-700 ease-in-out"
                   style={{ width: fillWidth }}
                 />
               </div>
-              <span className="text-[#494454] dark:text-white/40 text-xs font-bold uppercase tracking-widest">
+              <span className="text-[#494454] dark:text-white/40 text-[10px] sm:text-xs font-bold uppercase tracking-widest whitespace-nowrap">
                 Step {displayStep} of 3
               </span>
             </div>
