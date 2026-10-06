@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { moveTaskStatus } from "@/store/tasksSlice";
 import { enqueuePendingDelete } from "@/store/uiSlice";
+import { CalendarDays, X, Play, GripVertical } from "lucide-react";
 
 // Reuse the same tag colour map for consistency
 const TAG_COLOURS: Record<string, string> = {
@@ -63,12 +64,7 @@ export default function PlanningView() {
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <div className="w-9 h-9 rounded-xl bg-[#f0f2f8] dark:bg-white/5 flex items-center justify-center">
-          <span
-            className="material-symbols-outlined text-[#A0AEC0] dark:text-white/40"
-            style={{ fontSize: "18px" }}
-          >
-            event_note
-          </span>
+            <CalendarDays size={18} className="text-[#A0AEC0] dark:text-white/40" />
         </div>
         <div>
           <h2 className="text-[#0d1c2d] dark:text-white font-bold text-base leading-tight">
@@ -84,9 +80,7 @@ export default function PlanningView() {
         /* Empty state */
         <div className="flex flex-col items-center justify-center flex-1 opacity-70 text-center">
           <div className="w-16 h-16 bg-[#f0f2f8] dark:bg-white/5 rounded-full flex items-center justify-center mb-4">
-            <span className="material-symbols-outlined text-3xl text-[#A0AEC0] dark:text-white/30">
-              calendar_month
-            </span>
+            <CalendarDays size={30} className="text-[#A0AEC0] dark:text-white/30" />
           </div>
           <p className="text-[#718096] dark:text-white/40 text-sm font-medium">
             No tasks in planning
@@ -146,9 +140,7 @@ export default function PlanningView() {
                   title="Delete Task"
                   className="w-8 h-8 flex items-center justify-center rounded-xl bg-red-50 text-red-500 hover:bg-red-100 dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500/20 transition-all duration-200 opacity-0 group-hover:opacity-100"
                 >
-                  <span className="material-symbols-outlined" style={{ fontSize: "16px", fontWeight: "bold" }}>
-                    close
-                  </span>
+                  <X size={16} strokeWidth={3} />
                 </button>
                 <button
                   onClick={(e) => {
@@ -158,9 +150,7 @@ export default function PlanningView() {
                   title="Move to Active Board"
                   className="w-8 h-8 flex items-center justify-center rounded-xl bg-violet-50 text-violet-600 hover:bg-violet-100 dark:bg-violet-500/10 dark:text-violet-400 dark:hover:bg-violet-500/20 transition-all duration-200 opacity-0 group-hover:opacity-100"
                 >
-                  <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
-                    play_arrow
-                  </span>
+                  <Play size={18} />
                 </button>
               </div>
             </div>

@@ -8,6 +8,7 @@ import { moveTaskStatus, archiveTask } from "@/store/tasksSlice";
 import { enqueuePendingDelete, enqueueToast } from "@/store/uiSlice";
 import { relativeTimeString } from "@/utils/time";
 import { fireConfetti } from "@/utils/confetti";
+import { ArrowLeft, Archive, Trash2, MessageCircle, ArrowRight, Clock } from "lucide-react";
 
 // Tag colour map — expand as new tags are introduced
 const TAG_COLOURS: Record<string, string> = {
@@ -139,7 +140,7 @@ export default function TaskCard({ card, showArchiveMenu = false }: TaskCardProp
                 }}
                 className="flex items-center gap-2.5 w-full px-3.5 py-2.5 text-[13px] font-medium text-[#494454] dark:text-white/70 hover:bg-[#f8f5ff] dark:hover:bg-violet-500/10 hover:text-[#6b38d4] dark:hover:text-violet-300 transition-colors duration-150"
               >
-                <span className="material-symbols-outlined" style={{ fontSize: "15px" }}>arrow_back</span>
+                <ArrowLeft size={15} />
                 Move back to {previous.previousLabel}
               </button>
             )}
@@ -159,7 +160,7 @@ export default function TaskCard({ card, showArchiveMenu = false }: TaskCardProp
                 }}
                 className="flex items-center gap-2.5 w-full px-3.5 py-2.5 text-[13px] font-medium text-[#494454] dark:text-white/70 hover:bg-[#f8f5ff] dark:hover:bg-violet-500/10 hover:text-[#6b38d4] dark:hover:text-violet-300 transition-colors duration-150"
               >
-                <span className="material-symbols-outlined" style={{ fontSize: "15px" }}>archive</span>
+                <Archive size={15} />
                 Archive
               </button>
             )}
@@ -172,7 +173,7 @@ export default function TaskCard({ card, showArchiveMenu = false }: TaskCardProp
               }}
               className="flex items-center gap-2.5 w-full px-3.5 py-2.5 text-[13px] font-medium text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors duration-150"
             >
-              <span className="material-symbols-outlined" style={{ fontSize: "15px" }}>delete</span>
+              <Trash2 size={15} />
               Delete
             </button>
           </div>
@@ -205,9 +206,7 @@ export default function TaskCard({ card, showArchiveMenu = false }: TaskCardProp
         <div className="flex items-center gap-4">
           {/* Comment count */}
           <span className="flex items-center gap-1 text-[#A0AEC0] dark:text-white/40 text-xs font-semibold">
-            <span className="material-symbols-outlined" style={{ fontSize: "13px" }}>
-              chat_bubble
-            </span>
+            <MessageCircle size={13} />
             {card.comments}
           </span>
 
@@ -229,7 +228,7 @@ export default function TaskCard({ card, showArchiveMenu = false }: TaskCardProp
               }}
               className="flex items-center gap-0.5 text-[11px] font-semibold text-[#A0AEC0] dark:text-white/30 hover:text-[#6b38d4] dark:hover:text-violet-400 transition-colors duration-200"
             >
-              <span className="material-symbols-outlined" style={{ fontSize: "12px" }}>arrow_forward</span>
+              <ArrowRight size={12} />
               {next.nextLabel}
             </button>
           )}
@@ -237,9 +236,7 @@ export default function TaskCard({ card, showArchiveMenu = false }: TaskCardProp
 
         {/* Time label */}
         <span className="flex items-center gap-1 text-[#A0AEC0] dark:text-white/40 text-xs font-semibold">
-          <span className="material-symbols-outlined" style={{ fontSize: "13px" }}>
-            schedule
-          </span>
+          <Clock size={13} />
           {timeLabel}
         </span>
       </div>

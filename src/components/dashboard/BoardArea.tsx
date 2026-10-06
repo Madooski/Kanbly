@@ -6,6 +6,7 @@ import { selectColumnLabels } from "@/store/appSlice";
 import BoardColumn from "./BoardColumn";
 import AddTaskModal from "./AddTaskModal";
 import type { BoardColumnData } from "@/types";
+import { LayoutDashboard, Plus } from "lucide-react";
 
 //TODO: replace with tasksSlice data
 
@@ -40,9 +41,7 @@ export default function BoardArea() {
       {activeTasks.length === 0 ? (
         <div className="flex flex-col items-center justify-center flex-1 h-full opacity-80 text-center px-6">
           <div className="w-20 h-20 bg-[#f0f2f8] dark:bg-white/5 rounded-full flex items-center justify-center mb-6">
-            <span className="material-symbols-outlined text-4xl text-violet-400 dark:text-violet-500">
-              inbox
-            </span>
+            <LayoutDashboard size={36} className="text-violet-400 dark:text-violet-500" />
           </div>
           <h2 className="text-xl font-bold text-[#0d1c2d] dark:text-white mb-2">
             Your board is empty
@@ -54,9 +53,7 @@ export default function BoardArea() {
             onClick={() => setIsModalOpen(true)}
             className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#6b38d4] hover:bg-[#5516be] transition-all duration-200 shadow-[0_4px_12px_rgba(107,56,212,0.2)] hover:-translate-y-[1px]"
           >
-            <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
-              add
-            </span>
+            <Plus size={18} />
             Create New Task
           </button>
         </div>

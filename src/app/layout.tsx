@@ -29,11 +29,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
-        {/* Material Symbols (outlined) */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-          rel="stylesheet"
-        />
       </head>
       <body className="antialiased bg-[#f8f9ff] text-[#0d1c2d] dark:bg-[#0d0d1a] dark:text-white">
         <StoreProvider>

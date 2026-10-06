@@ -8,6 +8,7 @@ import { seedTasksForRole } from "@/store/tasksSlice";
 import type { FieldId } from "@/types";
 import FieldCard from "./FieldCard";
 import WordReveal from "./WordReveal";
+import { Sun, Moon, Sparkles } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 export default function Onboarding() {
@@ -68,9 +69,7 @@ export default function Onboarding() {
         className="absolute top-6 right-6 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-white/50 dark:bg-black/20 backdrop-blur-md border border-[#cbc3d7]/30 dark:border-white/10 text-[#0d1c2d] dark:text-white/70 hover:scale-110 transition-all duration-300 shadow-sm dark:shadow-none"
         title="Toggle Theme"
       >
-        <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
-          {isDarkMode ? "light_mode" : "dark_mode"}
-        </span>
+        {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
       </button>
 
       <main className="relative z-10 flex flex-col lg:flex-row items-center justify-center w-full min-h-screen px-6 py-12 pt-24 lg:pt-12 gap-8 md:gap-12 max-w-6xl mx-auto">
@@ -78,12 +77,7 @@ export default function Onboarding() {
         <div className="flex-1 flex flex-col gap-4 md:gap-6 max-w-xl text-center lg:text-left items-center lg:items-start">
           {/* AI Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#e9ddff] dark:bg-violet-500/10 border border-transparent dark:border-violet-500/30 text-[#5516be] dark:text-violet-300 text-xs font-bold tracking-widest uppercase">
-            <span
-              className="material-symbols-outlined text-sm"
-              style={{ fontVariationSettings: "'FILL' 1", fontSize: "16px" }}
-            >
-              colors_spark
-            </span>
+            <Sparkles size={16} fill="currentColor" />
             Productivity Workspace
           </div>
 

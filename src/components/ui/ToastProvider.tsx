@@ -4,6 +4,13 @@ import { useEffect, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { cancelPendingDelete, commitPendingDelete, removeToast } from "@/store/uiSlice";
 import { deleteTask } from "@/store/tasksSlice";
+import { Trash2, Archive, CheckCircle2 } from "lucide-react";
+
+const TOAST_ICONS: Record<string, any> = {
+  archive: Archive,
+  check_circle: CheckCircle2,
+  delete: Trash2,
+};
 
 const GRACE_MS = 4000;
 
@@ -81,12 +88,7 @@ export default function ToastProvider() {
           "
         >
           {/* Icon */}
-          <span
-            className="material-symbols-outlined text-red-400 dark:text-red-500 shrink-0"
-            style={{ fontSize: "18px" }}
-          >
-            delete
-          </span>
+          <Trash2 size={18} className="text-red-400 dark:text-red-500 shrink-0" />
 
           {/* Message */}
           <span className="flex-1 truncate">
@@ -135,13 +137,16 @@ export default function ToastProvider() {
             min-w-[260px] max-w-[340px]
           "
         >
-          {icon && (
-            <span
-              className={`material-symbols-outlined shrink-0 ${iconColor || 'text-violet-400 dark:text-violet-500'}`}
-              style={{ fontSize: "18px" }}
-            >
-              {icon}
-            </span>
+          {icon && TOAST_ICONS[icon] && (
+            (() => {
+              const IconComp = TOAST_ICONS[icon];
+              return (
+                <IconComp 
+                  size={18} 
+                  className={`shrink-0 ${iconColor || 'text-violet-400 dark:text-violet-500'}`} 
+                />
+              );
+            })()
           )}
           <span className="flex-1 truncate">
             {message}

@@ -5,6 +5,8 @@ import { FIELDS, useApp } from "@/context/AppContext";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { logout, toggleSidebar, setSidebarOpen, setActiveView } from "@/store/appSlice";
 import type { ActiveView } from "@/store/appSlice";
+import { getFieldIcon, getNavIcon } from "@/lib/icons";
+import { Sparkles, X, Settings, ChevronDown, Sun, Check, Moon, LogOut } from "lucide-react";
 
 const NAV_ITEMS: { label: string; icon: string; id: ActiveView | string }[] = [
   { label: "My Board", icon: "dashboard", id: "board" },
@@ -69,12 +71,7 @@ export default function Sidebar() {
           {/* Mobile-only top bar: brand + close button */}
           <div className="flex items-center justify-between md:hidden">
             <div className="flex items-center gap-2">
-              <span
-                className="material-symbols-outlined text-violet-400"
-                style={{ fontVariationSettings: "'FILL' 1", fontSize: "20px" }}
-              >
-                auto_awesome
-              </span>
+              <Sparkles size={20} className="text-violet-400" fill="currentColor" />
               <span className="text-[#0d1c2d] dark:text-white font-bold text-base tracking-tight">
                 Kanbly
               </span>
@@ -84,18 +81,16 @@ export default function Sidebar() {
               aria-label="Close sidebar"
               className="w-8 h-8 flex items-center justify-center rounded-xl text-[#494454] dark:text-white/50 hover:text-[#6b38d4] dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 transition-all duration-200"
             >
-              <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>close</span>
+              <X size={20} />
             </button>
           </div>
           {/* User Profile */}
           <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-2xl bg-[#f8f9ff] dark:bg-white/5 border border-[#cbc3d7]/30 dark:border-white/8">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center flex-shrink-0">
-              <span
-                className="material-symbols-outlined text-white"
-                style={{ fontVariationSettings: "'FILL' 1", fontSize: "18px" }}
-              >
-                {displayField.icon}
-              </span>
+              {(() => {
+                const FieldIcon = getFieldIcon(displayField.icon);
+                return <FieldIcon size={18} className="text-white" fill="currentColor" />;
+              })()}
             </div>
             <div className="flex flex-col min-w-0">
               <span className="text-[#0d1c2d] dark:text-white text-sm font-semibold truncate">
@@ -126,14 +121,13 @@ export default function Sidebar() {
                           : "text-[#494454] dark:text-white/50 hover:text-[#6b38d4] dark:hover:text-white hover:bg-[#e9ddff]/50 dark:hover:bg-white/8",
                       ].join(" ")}
                     >
-                      <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>settings</span>
+                      <Settings size={18} />
                       <span className="flex-1 text-left truncate">Settings</span>
-                      <span
-                        className="material-symbols-outlined transition-transform duration-200"
-                        style={{ fontSize: "16px", transform: settingsOpen ? "rotate(180deg)" : "rotate(0deg)" }}
-                      >
-                        expand_more
-                      </span>
+                      <ChevronDown
+                        className="transition-transform duration-200"
+                        size={16}
+                        style={{ transform: settingsOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+                      />
                     </button>
 
                     {/* Settings Dropdown */}
@@ -152,10 +146,10 @@ export default function Sidebar() {
                                   : "text-[#494454] dark:text-white/60 hover:bg-[#f8f5ff] dark:hover:bg-white/8 hover:text-[#6b38d4] dark:hover:text-white",
                               ].join(" ")}
                             >
-                              <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>light_mode</span>
+                              <Sun size={16} />
                               <span>Light</span>
                               {!isDarkMode && (
-                                <span className="material-symbols-outlined ml-auto" style={{ fontSize: "14px" }}>check</span>
+                                <Check size={14} className="ml-auto" />
                               )}
                             </button>
 
@@ -168,10 +162,10 @@ export default function Sidebar() {
                                   : "text-[#494454] dark:text-white/60 hover:bg-[#f8f5ff] dark:hover:bg-white/8 hover:text-[#6b38d4] dark:hover:text-white",
                               ].join(" ")}
                             >
-                              <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>dark_mode</span>
+                              <Moon size={16} />
                               <span>Dark</span>
                               {isDarkMode && (
-                                <span className="material-symbols-outlined ml-auto" style={{ fontSize: "14px" }}>check</span>
+                                <Check size={14} className="ml-auto" />
                               )}
                             </button>
                           </div>
@@ -200,9 +194,10 @@ export default function Sidebar() {
                       : "text-[#494454] dark:text-white/50 hover:text-[#6b38d4] dark:hover:text-white hover:bg-[#e9ddff]/50 dark:hover:bg-white/8",
                   ].join(" ")}
                 >
-                  <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
-                    {item.icon}
-                  </span>
+                  {(() => {
+                    const NavIcon = getNavIcon(item.icon);
+                    return <NavIcon size={18} />;
+                  })()}
                   <span className="truncate">{item.label}</span>
                 </a>
               );
@@ -215,9 +210,7 @@ export default function Sidebar() {
               onClick={() => dispatch(logout())}
               className="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 rounded-xl text-sm font-medium text-[#ba1a1a] dark:text-white/40 hover:bg-[#ffdad6] dark:hover:bg-red-500/10 transition-all duration-200 mt-auto"
             >
-              <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
-                logout
-              </span>
+              <LogOut size={18} />
               <span>Logout</span>
             </button>
           </div>

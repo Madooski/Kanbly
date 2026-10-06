@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { ArrowRight } from "lucide-react";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -34,12 +35,7 @@ export default function Button({
       onClick={onClick}
     >
       {children}
-      <span
-        className="material-symbols-outlined text-base"
-        style={{ fontSize: "18px" }}
-      >
-        arrow_forward
-      </span>
+      <ArrowRight size={18} />
     </button>
   );
 }

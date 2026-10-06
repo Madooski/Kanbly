@@ -5,6 +5,7 @@ import type { TaskCard } from "@/types";
 import { selectColumnLabels } from "@/store/appSlice";
 import { selectAllTasks } from "@/store/tasksSlice";
 import { useAppSelector } from "@/store/hooks";
+import { SearchX } from "lucide-react";
 
 interface SearchResultsProps {
   query: string;
@@ -43,9 +44,7 @@ export default function SearchResults({ query }: SearchResultsProps) {
 
       {matchingTasks.length === 0 ? (
         <div className="flex flex-1 flex-col items-center justify-center text-center">
-          <span className="material-symbols-outlined text-4xl text-[#A0AEC0] dark:text-white/30">
-            search_off
-          </span>
+          <SearchX size={36} className="text-[#A0AEC0] dark:text-white/30" />
           <h2 className="mt-4 text-lg font-bold text-[#1A202C] dark:text-white">No tasks found</h2>
         </div>
       ) : (

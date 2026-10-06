@@ -1,5 +1,8 @@
 "use client";
 
+import { CheckCircle2 } from "lucide-react";
+import { getFieldIcon } from "@/lib/icons";
+
 interface FieldCardProps {
   title: string;
   icon: string;
@@ -13,6 +16,8 @@ export default function FieldCard({
   isSelected,
   onClick,
 }: FieldCardProps) {
+  const IconComponent = getFieldIcon(icon);
+
   return (
     <div
       onClick={onClick}
@@ -27,24 +32,17 @@ export default function FieldCard({
       {/* Selection check */}
       {isSelected && (
         <div className="absolute top-2.5 right-2.5 text-[#6b38d4] dark:text-violet-300">
-          <span
-            className="material-symbols-outlined text-lg"
-            style={{ fontVariationSettings: "'FILL' 1", fontSize: "18px" }}
-          >
-            check_circle
-          </span>
+            <CheckCircle2 size={18} fill="currentColor" />
         </div>
       )}
 
-      <span
+      <IconComponent
+        size={30}
         className={[
-          "material-symbols-outlined text-3xl transition-colors duration-300",
+          "transition-colors duration-300",
           isSelected ? "text-[#6b38d4] dark:text-violet-300" : "text-[#8f889d] dark:text-white/60",
         ].join(" ")}
-        style={{ fontSize: "30px" }}
-      >
-        {icon}
-      </span>
+      />
 
       <span
         className={[

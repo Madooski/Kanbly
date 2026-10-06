@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { addTask } from "@/store/tasksSlice";
 import { SEED_TASKS } from "@/config/seedTasks";
+import { Zap, AlignLeft, ChevronDown, PlusCircle, X } from "lucide-react";
 
 interface AddTaskModalProps {
   isOpen: boolean;
@@ -99,12 +100,7 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span
-              className="material-symbols-outlined text-violet-500"
-              style={{ fontVariationSettings: "'FILL' 1", fontSize: "20px" }}
-            >
-              add_task
-            </span>
+            <PlusCircle size={20} className="text-violet-500" fill="currentColor" />
             <h2 className="text-[#0d1c2d] dark:text-white font-bold text-[17px]">
               New Task
             </h2>
@@ -114,9 +110,7 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
             className="w-8 h-8 flex items-center justify-center rounded-xl text-[#494454] dark:text-white/40 hover:text-[#0d1c2d] dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 transition-all duration-200"
             aria-label="Close modal"
           >
-            <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
-              close
-            </span>
+            <X size={18} />
           </button>
         </div>
 
@@ -161,12 +155,7 @@ export default function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
                   ))
                 )}
               </select>
-              <span
-                className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#A0AEC0] dark:text-white/30 pointer-events-none"
-                style={{ fontSize: "16px" }}
-              >
-                expand_more
-              </span>
+              <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#A0AEC0] dark:text-white/30 pointer-events-none" />
             </div>
           </div>
 

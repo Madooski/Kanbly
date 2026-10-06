@@ -71,11 +71,6 @@
   }
 }
 
-/* ── Utility: custom fill level for Material Symbols ─────────────────────── */
-.ms-fill {
-  font-variation-settings: "FILL" 1;
-}
-
 /* ── Scrollbar styling ─────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;

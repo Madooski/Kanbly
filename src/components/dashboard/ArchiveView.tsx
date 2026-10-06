@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { useAppSelector } from "@/store/hooks";
+import { ArchiveRestore, CalendarDays, Archive as ArchiveIcon } from "lucide-react";
 
 // Reuse the same tag colour map for consistency
 const TAG_COLOURS: Record<string, string> = {
@@ -60,12 +61,7 @@ export default function ArchiveView() {
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <div className="w-9 h-9 rounded-xl bg-[#f0f2f8] dark:bg-white/5 flex items-center justify-center">
-          <span
-            className="material-symbols-outlined text-[#A0AEC0] dark:text-white/40"
-            style={{ fontSize: "18px" }}
-          >
-            archive
-          </span>
+            <ArchiveIcon size={18} className="text-[#A0AEC0] dark:text-white/40" />
         </div>
         <div>
           <h2 className="text-[#0d1c2d] dark:text-white font-bold text-base leading-tight">
@@ -81,9 +77,7 @@ export default function ArchiveView() {
         /* Empty state */
         <div className="flex flex-col items-center justify-center flex-1 opacity-70 text-center">
           <div className="w-16 h-16 bg-[#f0f2f8] dark:bg-white/5 rounded-full flex items-center justify-center mb-4">
-            <span className="material-symbols-outlined text-3xl text-[#A0AEC0] dark:text-white/30">
-              inventory_2
-            </span>
+            <ArchiveRestore size={30} className="text-[#A0AEC0] dark:text-white/30" />
           </div>
           <p className="text-[#718096] dark:text-white/40 text-sm font-medium">
             No archived records yet

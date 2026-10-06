@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { useAppDispatch } from "@/store/hooks";
 import { toggleSidebar, logout } from "@/store/appSlice";
+import { Menu, Sparkles, Search, ArrowRightLeft, Bell, HelpCircle } from "lucide-react";
 
 interface TopNavbarProps {
   onSearchChange: (query: string) => void;
@@ -32,18 +33,11 @@ export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
           className="w-9 h-9 flex items-center justify-center rounded-xl text-[#0d1c2d] dark:text-white/60 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 transition-all duration-200"
           aria-label="Toggle sidebar"
         >
-          <span className="material-symbols-outlined" style={{ fontSize: "22px" }}>
-            menu
-          </span>
+          <Menu size={22} />
         </button>
 
         <div className="flex items-center gap-2 hidden sm:flex">
-          <span
-            className="material-symbols-outlined text-violet-400"
-            style={{ fontVariationSettings: "'FILL' 1", fontSize: "22px" }}
-          >
-            auto_awesome
-          </span>
+          <Sparkles size={22} className="text-violet-400" fill="currentColor" />
           <span className="text-[#0d1c2d] dark:text-white font-bold text-lg tracking-tight">
             Kanbly{" "}
             <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
@@ -56,9 +50,7 @@ export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
       {/* Center: search */}
       <div className="flex-1 max-w-sm mx-2 sm:mx-6 min-w-0">
         <div className="flex items-center gap-2 bg-[#f0f2f8] dark:bg-white/5 border border-transparent dark:border-white/10 rounded-xl px-2 sm:px-3 py-2 focus-within:border-[#6b38d4]/50 dark:focus-within:border-violet-500/50 dark:focus-within:bg-white/8 transition-all duration-200">
-          <span className="material-symbols-outlined text-[#494454] dark:text-white/30 shrink-0" style={{ fontSize: "18px" }}>
-            search
-          </span>
+          <Search size={18} className="text-[#494454] dark:text-white/30 shrink-0" />
           <input
             type="text"
             placeholder="Search..."
@@ -75,24 +67,18 @@ export default function TopNavbar({ onSearchChange }: TopNavbarProps) {
           onClick={() => dispatch(logout())}
           className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-[#6b38d4] dark:border-white/10 text-[#6b38d4] dark:text-white/50 text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-[#e9ddff] dark:bg-transparent hover:bg-[#6b38d4] hover:text-white dark:hover:border-violet-500/40 dark:hover:bg-violet-500/10 transition-all duration-200 hover:shadow-[0_4px_12px_rgba(107,56,212,0.2)] dark:hover:shadow-none whitespace-nowrap"
         >
-          <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>
-            swap_horiz
-          </span>
+          <ArrowRightLeft size={16} />
           <span className="inline">Change Field</span>
         </button>
 
         <button className="relative w-9 h-9 hidden sm:flex items-center justify-center rounded-xl text-[#494454] dark:text-white/50 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 hover:text-[#6b38d4] transition-all duration-200">
-          <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
-            notifications
-          </span>
+          <Bell size={20} />
           <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-violet-400" />
         </button>
 
 
         <button className="w-9 h-9 hidden sm:flex items-center justify-center rounded-xl text-[#494454] dark:text-white/50 dark:hover:text-white hover:bg-[#f0f0f5] dark:hover:bg-white/10 hover:text-[#6b38d4] transition-all duration-200">
-          <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
-            help
-          </span>
+          <HelpCircle size={20} />
         </button>
 
         <img

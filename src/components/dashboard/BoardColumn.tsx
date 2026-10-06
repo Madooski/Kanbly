@@ -2,6 +2,7 @@
 
 import type { BoardColumnData } from "@/types";
 import TaskCard from "./TaskCard";
+import { Plus } from "lucide-react";
 
 interface BoardColumnProps {
   column: BoardColumnData;
@@ -35,9 +36,7 @@ export default function BoardColumn({ column, isFirstColumn, isLastColumn, onAdd
             onClick={onAddTask}
             className="flex items-center justify-center gap-2 w-full px-4 py-4 mt-2 rounded-2xl border-none text-[#A0AEC0] dark:text-white/30 text-[13px] font-semibold hover:text-[#718096] dark:hover:text-violet-300/60 dark:hover:bg-violet-500/5 transition-all duration-200"
           >
-            <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>
-              add
-            </span>
+            <Plus size={16} />
             Create New Task
           </button>
         )}
